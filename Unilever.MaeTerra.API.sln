@@ -7,11 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaeTerra.WebAPI", "Unilever
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. API", "1. API", "{60BE3658-D0EF-49BC-A0E5-B0F634DD2A9A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Negócios", "2. Negócios", "{BD4CB2B2-BE1B-4F03-919D-9C87FA0BACCC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Negócios", "2. Negócios", "{64406288-052B-4599-A8A4-96D6C65C0333}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Dados", "3. Dados", "{DEF343E8-A979-454C-8F90-0977630FBB81}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Dados", "3. Dados", "{0DDEE692-B1CD-4514-B81E-3D908F603C5C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. ORM", "4. ORM", "{6453C14D-A4F5-4A55-ACB5-99E44F1C8C2C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. ORM", "4. ORM", "{99285771-CA82-4CF4-82DC-5E02F8759B7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaeTerra.Infraestrutura", "MaeTerra.Infraestrutura\MaeTerra.Infraestrutura.csproj", "{440A1474-9288-4259-9C3F-D940A495F477}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +25,17 @@ Global
 		{C8AC4082-7DC8-4FB8-B8B3-35A9DD76763D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8AC4082-7DC8-4FB8-B8B3-35A9DD76763D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8AC4082-7DC8-4FB8-B8B3-35A9DD76763D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{440A1474-9288-4259-9C3F-D940A495F477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{440A1474-9288-4259-9C3F-D940A495F477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{440A1474-9288-4259-9C3F-D940A495F477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{440A1474-9288-4259-9C3F-D940A495F477}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C8AC4082-7DC8-4FB8-B8B3-35A9DD76763D} = {60BE3658-D0EF-49BC-A0E5-B0F634DD2A9A}
+		{440A1474-9288-4259-9C3F-D940A495F477} = {99285771-CA82-4CF4-82DC-5E02F8759B7E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {429CBDD2-D105-4F55-96D1-775565B3B0A9}

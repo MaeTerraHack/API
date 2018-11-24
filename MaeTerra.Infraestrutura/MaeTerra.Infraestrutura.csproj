@@ -49,15 +49,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EDMX\Aviso.cs">
+      <DependentUpon>MaeTerraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Fornecedor.cs">
+      <DependentUpon>MaeTerraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\FornecedorDocumento.cs">
+      <DependentUpon>MaeTerraDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="EDMX\MaeTerraDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MaeTerraDB.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="EDMX\MaeTerraDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MaeTerraDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="EDMX\MaeTerraDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MaeTerraDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\MateriaPrima.cs">
+      <DependentUpon>MaeTerraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Pedido.cs">
+      <DependentUpon>MaeTerraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\PedidoItem.cs">
+      <DependentUpon>MaeTerraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\PedidoMateriaPrima.cs">
+      <DependentUpon>MaeTerraDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDMX\Usuario.cs">
+      <DependentUpon>MaeTerraDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,10 +107,25 @@
     <Content Include="EDMX\MaeTerraDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MaeTerraDB.Context.cs</LastGenOutput>
+      <DependentUpon>MaeTerraDB.edmx</DependentUpon>
     </Content>
+    <Content Include="EDMX\MaeTerraDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MaeTerraDB.edmx</DependentUpon>
+      <LastGenOutput>MaeTerraDB.cs</LastGenOutput>
+    </Content>
+    <Content Include="SQL\ScriptSQL1.0.0.1.sql" />
+    <Content Include="SQL\ScriptSQL1.0.0.2.sql" />
+    <Content Include="SQL\ScriptSQL1.0.0.3.sql" />
+    <Content Include="SQL\ScriptSQL1.0.0.4.sql" />
+    <Content Include="SQL\ScriptSQL1.0.0.5.sql" />
+    <Content Include="SQL\ScriptSQL1.0.0.6.sql" />
+    <Content Include="SQL\ScriptSQL1.0.0.7.sql" />
+    <Content Include="SQL\ScriptSQL1.0.0.8.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
