@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c0271ae5516b4312b69a23a9afe2057b" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="UnileverDBModel.Aviso" Width="1.5" PointX="8" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UnileverDBModel.Fornecedor" Width="1.875" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UnileverDBModel.FornecedorDocumento" Width="2" PointX="2.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UnileverDBModel.MateriaPrima" Width="2" PointX="2.875" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UnileverDBModel.Pedido" Width="1.875" PointX="8.375" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UnileverDBModel.PedidoItem" Width="1.875" PointX="0.5" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UnileverDBModel.PedidoMateriaPrima" Width="2" PointX="5.625" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UnileverDBModel.Usuario" Width="1.875" PointX="5.5" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="UnileverDBModel.FK_tbFornecedoresDocumentos_tbFornecedores" ManuallyRouted="false" />
+        <AssociationConnector Association="UnileverDBModel.FK_tbPedidosItens_tbFornecedores" ManuallyRouted="false" />
+        <AssociationConnector Association="UnileverDBModel.FK_tbFornecedoresDocumentos_tbUsuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="UnileverDBModel.FK_tbPedidosItens_tbMateriasPrimas" ManuallyRouted="false" />
+        <AssociationConnector Association="UnileverDBModel.FK_tbPedidosMateriasPrimas_tbMateriasPrimas" ManuallyRouted="false" />
+        <AssociationConnector Association="UnileverDBModel.FK_tbPedidos_tbUsuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="UnileverDBModel.FK_tbPedidosItens_tbPedidos" ManuallyRouted="false" />
+        <AssociationConnector Association="UnileverDBModel.FK_tbPedidosMateriasPrimas_tbPedidos" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

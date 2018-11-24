@@ -1,0 +1,600 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="UnileverDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbAvisos">
+          <Key>
+            <PropertyRef Name="codAviso" />
+          </Key>
+          <Property Name="codAviso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titulo" Type="nvarchar" MaxLength="50" />
+          <Property Name="mensagem" Type="nvarchar(max)" />
+          <Property Name="ativo" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbFornecedores">
+          <Key>
+            <PropertyRef Name="codFornecedor" />
+          </Key>
+          <Property Name="codFornecedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="razaoSocial" Type="nvarchar" MaxLength="50" />
+          <Property Name="cnpj" Type="nvarchar" MaxLength="50" />
+          <Property Name="endereco" Type="nvarchar" MaxLength="150" />
+          <Property Name="numero" Type="nvarchar" MaxLength="50" />
+          <Property Name="bairro" Type="nvarchar" MaxLength="50" />
+          <Property Name="cidade" Type="nvarchar" MaxLength="50" />
+          <Property Name="uf" Type="char" MaxLength="2" />
+          <Property Name="telefone1" Type="nvarchar" MaxLength="50" />
+          <Property Name="telefone2" Type="nvarchar" MaxLength="50" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="ativo" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbFornecedoresDocumentos">
+          <Key>
+            <PropertyRef Name="codFornecedorDocumento" />
+          </Key>
+          <Property Name="codFornecedorDocumento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codFornecedor" Type="int" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="50" />
+          <Property Name="arquivo" Type="binary" MaxLength="250" />
+          <Property Name="aprovado" Type="bit" />
+          <Property Name="dataAprovado" Type="datetime" />
+          <Property Name="codUsuarioAprovado" Type="int" />
+        </EntityType>
+        <EntityType Name="tbMateriasPrimas">
+          <Key>
+            <PropertyRef Name="codMateriaPrima" />
+          </Key>
+          <Property Name="codMateriaPrima" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="50" />
+          <Property Name="grupo" Type="nvarchar" MaxLength="50" />
+          <Property Name="classificacao" Type="nvarchar" MaxLength="50" />
+          <Property Name="ultimoPreco" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="tbPedidos">
+          <Key>
+            <PropertyRef Name="codPedido" />
+          </Key>
+          <Property Name="codPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codUsuario" Type="int" Nullable="false" />
+          <Property Name="data" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbPedidosItens">
+          <Key>
+            <PropertyRef Name="codPedidoItem" />
+          </Key>
+          <Property Name="codPedidoItem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codPedido" Type="int" Nullable="false" />
+          <Property Name="codFornecedor" Type="int" Nullable="false" />
+          <Property Name="codMateriaPrima" Type="int" Nullable="false" />
+          <Property Name="quantidade" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="valor" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="dataEntrega" Type="datetime" />
+          <Property Name="aprovado" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbPedidosMateriasPrimas">
+          <Key>
+            <PropertyRef Name="codPedidoMateriaPrima" />
+          </Key>
+          <Property Name="codPedidoMateriaPrima" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codPedido" Type="int" Nullable="false" />
+          <Property Name="codMateriaPrima" Type="int" />
+          <Property Name="precoMaximo" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="dataLimite" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbUsuarios">
+          <Key>
+            <PropertyRef Name="codUsuario" />
+          </Key>
+          <Property Name="codUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="150" />
+          <Property Name="email" Type="nvarchar" MaxLength="250" />
+          <Property Name="senha" Type="nvarchar" MaxLength="50" />
+          <Property Name="ativo" Type="bit" />
+        </EntityType>
+        <Association Name="FK_tbFornecedoresDocumentos_tbFornecedores">
+          <End Role="tbFornecedores" Type="Self.tbFornecedores" Multiplicity="1" />
+          <End Role="tbFornecedoresDocumentos" Type="Self.tbFornecedoresDocumentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbFornecedores">
+              <PropertyRef Name="codFornecedor" />
+            </Principal>
+            <Dependent Role="tbFornecedoresDocumentos">
+              <PropertyRef Name="codFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbFornecedoresDocumentos_tbUsuarios">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="0..1" />
+          <End Role="tbFornecedoresDocumentos" Type="Self.tbFornecedoresDocumentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="codUsuario" />
+            </Principal>
+            <Dependent Role="tbFornecedoresDocumentos">
+              <PropertyRef Name="codUsuarioAprovado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidos_tbUsuarios">
+          <End Role="tbUsuarios" Type="Self.tbUsuarios" Multiplicity="1" />
+          <End Role="tbPedidos" Type="Self.tbPedidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="codUsuario" />
+            </Principal>
+            <Dependent Role="tbPedidos">
+              <PropertyRef Name="codUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidosItens_tbFornecedores">
+          <End Role="tbFornecedores" Type="Self.tbFornecedores" Multiplicity="1" />
+          <End Role="tbPedidosItens" Type="Self.tbPedidosItens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbFornecedores">
+              <PropertyRef Name="codFornecedor" />
+            </Principal>
+            <Dependent Role="tbPedidosItens">
+              <PropertyRef Name="codFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidosItens_tbMateriasPrimas">
+          <End Role="tbMateriasPrimas" Type="Self.tbMateriasPrimas" Multiplicity="1" />
+          <End Role="tbPedidosItens" Type="Self.tbPedidosItens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMateriasPrimas">
+              <PropertyRef Name="codMateriaPrima" />
+            </Principal>
+            <Dependent Role="tbPedidosItens">
+              <PropertyRef Name="codMateriaPrima" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidosItens_tbPedidos">
+          <End Role="tbPedidos" Type="Self.tbPedidos" Multiplicity="1" />
+          <End Role="tbPedidosItens" Type="Self.tbPedidosItens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPedidos">
+              <PropertyRef Name="codPedido" />
+            </Principal>
+            <Dependent Role="tbPedidosItens">
+              <PropertyRef Name="codPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidosMateriasPrimas_tbMateriasPrimas">
+          <End Role="tbMateriasPrimas" Type="Self.tbMateriasPrimas" Multiplicity="0..1" />
+          <End Role="tbPedidosMateriasPrimas" Type="Self.tbPedidosMateriasPrimas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMateriasPrimas">
+              <PropertyRef Name="codMateriaPrima" />
+            </Principal>
+            <Dependent Role="tbPedidosMateriasPrimas">
+              <PropertyRef Name="codMateriaPrima" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidosMateriasPrimas_tbPedidos">
+          <End Role="tbPedidos" Type="Self.tbPedidos" Multiplicity="1" />
+          <End Role="tbPedidosMateriasPrimas" Type="Self.tbPedidosMateriasPrimas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPedidos">
+              <PropertyRef Name="codPedido" />
+            </Principal>
+            <Dependent Role="tbPedidosMateriasPrimas">
+              <PropertyRef Name="codPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UnileverDBModelStoreContainer">
+          <EntitySet Name="tbAvisos" EntityType="Self.tbAvisos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbFornecedores" EntityType="Self.tbFornecedores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbFornecedoresDocumentos" EntityType="Self.tbFornecedoresDocumentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbMateriasPrimas" EntityType="Self.tbMateriasPrimas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbPedidos" EntityType="Self.tbPedidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbPedidosItens" EntityType="Self.tbPedidosItens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbPedidosMateriasPrimas" EntityType="Self.tbPedidosMateriasPrimas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbUsuarios" EntityType="Self.tbUsuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbFornecedoresDocumentos_tbFornecedores" Association="Self.FK_tbFornecedoresDocumentos_tbFornecedores">
+            <End Role="tbFornecedores" EntitySet="tbFornecedores" />
+            <End Role="tbFornecedoresDocumentos" EntitySet="tbFornecedoresDocumentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbFornecedoresDocumentos_tbUsuarios" Association="Self.FK_tbFornecedoresDocumentos_tbUsuarios">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbFornecedoresDocumentos" EntitySet="tbFornecedoresDocumentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidos_tbUsuarios" Association="Self.FK_tbPedidos_tbUsuarios">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPedidos" EntitySet="tbPedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidosItens_tbFornecedores" Association="Self.FK_tbPedidosItens_tbFornecedores">
+            <End Role="tbFornecedores" EntitySet="tbFornecedores" />
+            <End Role="tbPedidosItens" EntitySet="tbPedidosItens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidosItens_tbMateriasPrimas" Association="Self.FK_tbPedidosItens_tbMateriasPrimas">
+            <End Role="tbMateriasPrimas" EntitySet="tbMateriasPrimas" />
+            <End Role="tbPedidosItens" EntitySet="tbPedidosItens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidosItens_tbPedidos" Association="Self.FK_tbPedidosItens_tbPedidos">
+            <End Role="tbPedidos" EntitySet="tbPedidos" />
+            <End Role="tbPedidosItens" EntitySet="tbPedidosItens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidosMateriasPrimas_tbMateriasPrimas" Association="Self.FK_tbPedidosMateriasPrimas_tbMateriasPrimas">
+            <End Role="tbMateriasPrimas" EntitySet="tbMateriasPrimas" />
+            <End Role="tbPedidosMateriasPrimas" EntitySet="tbPedidosMateriasPrimas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidosMateriasPrimas_tbPedidos" Association="Self.FK_tbPedidosMateriasPrimas_tbPedidos">
+            <End Role="tbPedidos" EntitySet="tbPedidos" />
+            <End Role="tbPedidosMateriasPrimas" EntitySet="tbPedidosMateriasPrimas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UnileverDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aviso">
+          <Key>
+            <PropertyRef Name="codAviso" />
+          </Key>
+          <Property Name="codAviso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="mensagem" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ativo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Fornecedor">
+          <Key>
+            <PropertyRef Name="codFornecedor" />
+          </Key>
+          <Property Name="codFornecedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="razaoSocial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cnpj" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="endereco" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="numero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cidade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="uf" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="telefone1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="telefone2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ativo" Type="Boolean" />
+          <NavigationProperty Name="FornecedorDocumentos" Relationship="Self.FK_tbFornecedoresDocumentos_tbFornecedores" FromRole="tbFornecedores" ToRole="tbFornecedoresDocumentos" />
+          <NavigationProperty Name="PedidosItens" Relationship="Self.FK_tbPedidosItens_tbFornecedores" FromRole="tbFornecedores" ToRole="tbPedidosItens" />
+        </EntityType>
+        <EntityType Name="FornecedorDocumento">
+          <Key>
+            <PropertyRef Name="codFornecedorDocumento" />
+          </Key>
+          <Property Name="codFornecedorDocumento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codFornecedor" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="arquivo" Type="Binary" MaxLength="250" FixedLength="true" />
+          <Property Name="aprovado" Type="Boolean" />
+          <Property Name="dataAprovado" Type="DateTime" Precision="3" />
+          <Property Name="codUsuarioAprovado" Type="Int32" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_tbFornecedoresDocumentos_tbUsuarios" FromRole="tbFornecedoresDocumentos" ToRole="tbUsuarios" />
+        </EntityType>
+        <EntityType Name="MateriaPrima">
+          <Key>
+            <PropertyRef Name="codMateriaPrima" />
+          </Key>
+          <Property Name="codMateriaPrima" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="grupo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="classificacao" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ultimoPreco" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="codPedido" />
+          </Key>
+          <Property Name="codPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codUsuario" Type="Int32" Nullable="false" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_tbPedidos_tbUsuarios" FromRole="tbPedidos" ToRole="tbUsuarios" />
+          <NavigationProperty Name="PedidoItens" Relationship="Self.FK_tbPedidosItens_tbPedidos" FromRole="tbPedidos" ToRole="tbPedidosItens" />
+          <NavigationProperty Name="PedidoMateriasPrimas" Relationship="Self.FK_tbPedidosMateriasPrimas_tbPedidos" FromRole="tbPedidos" ToRole="tbPedidosMateriasPrimas" />
+        </EntityType>
+        <EntityType Name="PedidoItem">
+          <Key>
+            <PropertyRef Name="codPedidoItem" />
+          </Key>
+          <Property Name="codPedidoItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codPedido" Type="Int32" Nullable="false" />
+          <Property Name="codFornecedor" Type="Int32" Nullable="false" />
+          <Property Name="codMateriaPrima" Type="Int32" Nullable="false" />
+          <Property Name="quantidade" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="valor" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="dataEntrega" Type="DateTime" Precision="3" />
+          <Property Name="aprovado" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="PedidoMateriaPrima">
+          <Key>
+            <PropertyRef Name="codPedidoMateriaPrima" />
+          </Key>
+          <Property Name="codPedidoMateriaPrima" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codPedido" Type="Int32" Nullable="false" />
+          <Property Name="codMateriaPrima" Type="Int32" />
+          <Property Name="precoMaximo" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="dataLimite" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MateriaPrima" Relationship="Self.FK_tbPedidosMateriasPrimas_tbMateriasPrimas" FromRole="tbPedidosMateriasPrimas" ToRole="tbMateriasPrimas" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="codUsuario" />
+          </Key>
+          <Property Name="codUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="senha" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ativo" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_tbFornecedoresDocumentos_tbFornecedores">
+          <End Role="tbFornecedores" Type="UnileverDBModel.Fornecedor" Multiplicity="1" />
+          <End Role="tbFornecedoresDocumentos" Type="UnileverDBModel.FornecedorDocumento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbFornecedores">
+              <PropertyRef Name="codFornecedor" />
+            </Principal>
+            <Dependent Role="tbFornecedoresDocumentos">
+              <PropertyRef Name="codFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidosItens_tbFornecedores">
+          <End Role="tbFornecedores" Type="UnileverDBModel.Fornecedor" Multiplicity="1" />
+          <End Role="tbPedidosItens" Type="UnileverDBModel.PedidoItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbFornecedores">
+              <PropertyRef Name="codFornecedor" />
+            </Principal>
+            <Dependent Role="tbPedidosItens">
+              <PropertyRef Name="codFornecedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbFornecedoresDocumentos_tbUsuarios">
+          <End Role="tbUsuarios" Type="UnileverDBModel.Usuario" Multiplicity="0..1" />
+          <End Role="tbFornecedoresDocumentos" Type="UnileverDBModel.FornecedorDocumento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="codUsuario" />
+            </Principal>
+            <Dependent Role="tbFornecedoresDocumentos">
+              <PropertyRef Name="codUsuarioAprovado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidosItens_tbMateriasPrimas">
+          <End Role="tbMateriasPrimas" Type="UnileverDBModel.MateriaPrima" Multiplicity="1" />
+          <End Role="tbPedidosItens" Type="UnileverDBModel.PedidoItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMateriasPrimas">
+              <PropertyRef Name="codMateriaPrima" />
+            </Principal>
+            <Dependent Role="tbPedidosItens">
+              <PropertyRef Name="codMateriaPrima" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidosMateriasPrimas_tbMateriasPrimas">
+          <End Role="tbMateriasPrimas" Type="UnileverDBModel.MateriaPrima" Multiplicity="0..1" />
+          <End Role="tbPedidosMateriasPrimas" Type="UnileverDBModel.PedidoMateriaPrima" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbMateriasPrimas">
+              <PropertyRef Name="codMateriaPrima" />
+            </Principal>
+            <Dependent Role="tbPedidosMateriasPrimas">
+              <PropertyRef Name="codMateriaPrima" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidos_tbUsuarios">
+          <End Role="tbUsuarios" Type="UnileverDBModel.Usuario" Multiplicity="1" />
+          <End Role="tbPedidos" Type="UnileverDBModel.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbUsuarios">
+              <PropertyRef Name="codUsuario" />
+            </Principal>
+            <Dependent Role="tbPedidos">
+              <PropertyRef Name="codUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidosItens_tbPedidos">
+          <End Role="tbPedidos" Type="UnileverDBModel.Pedido" Multiplicity="1" />
+          <End Role="tbPedidosItens" Type="UnileverDBModel.PedidoItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPedidos">
+              <PropertyRef Name="codPedido" />
+            </Principal>
+            <Dependent Role="tbPedidosItens">
+              <PropertyRef Name="codPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbPedidosMateriasPrimas_tbPedidos">
+          <End Role="tbPedidos" Type="UnileverDBModel.Pedido" Multiplicity="1" />
+          <End Role="tbPedidosMateriasPrimas" Type="UnileverDBModel.PedidoMateriaPrima" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPedidos">
+              <PropertyRef Name="codPedido" />
+            </Principal>
+            <Dependent Role="tbPedidosMateriasPrimas">
+              <PropertyRef Name="codPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UnileverDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbAvisos" EntityType="UnileverDBModel.Aviso" />
+          <EntitySet Name="tbFornecedores" EntityType="UnileverDBModel.Fornecedor" />
+          <EntitySet Name="tbFornecedoresDocumentos" EntityType="UnileverDBModel.FornecedorDocumento" />
+          <EntitySet Name="tbMateriasPrimas" EntityType="UnileverDBModel.MateriaPrima" />
+          <EntitySet Name="tbPedidos" EntityType="UnileverDBModel.Pedido" />
+          <EntitySet Name="tbPedidosItens" EntityType="UnileverDBModel.PedidoItem" />
+          <EntitySet Name="tbPedidosMateriasPrimas" EntityType="UnileverDBModel.PedidoMateriaPrima" />
+          <EntitySet Name="tbUsuarios" EntityType="UnileverDBModel.Usuario" />
+          <AssociationSet Name="FK_tbFornecedoresDocumentos_tbFornecedores" Association="Self.FK_tbFornecedoresDocumentos_tbFornecedores">
+            <End Role="tbFornecedores" EntitySet="tbFornecedores" />
+            <End Role="tbFornecedoresDocumentos" EntitySet="tbFornecedoresDocumentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidosItens_tbFornecedores" Association="Self.FK_tbPedidosItens_tbFornecedores">
+            <End Role="tbFornecedores" EntitySet="tbFornecedores" />
+            <End Role="tbPedidosItens" EntitySet="tbPedidosItens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbFornecedoresDocumentos_tbUsuarios" Association="Self.FK_tbFornecedoresDocumentos_tbUsuarios">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbFornecedoresDocumentos" EntitySet="tbFornecedoresDocumentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidosItens_tbMateriasPrimas" Association="Self.FK_tbPedidosItens_tbMateriasPrimas">
+            <End Role="tbMateriasPrimas" EntitySet="tbMateriasPrimas" />
+            <End Role="tbPedidosItens" EntitySet="tbPedidosItens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidosMateriasPrimas_tbMateriasPrimas" Association="Self.FK_tbPedidosMateriasPrimas_tbMateriasPrimas">
+            <End Role="tbMateriasPrimas" EntitySet="tbMateriasPrimas" />
+            <End Role="tbPedidosMateriasPrimas" EntitySet="tbPedidosMateriasPrimas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidos_tbUsuarios" Association="Self.FK_tbPedidos_tbUsuarios">
+            <End Role="tbUsuarios" EntitySet="tbUsuarios" />
+            <End Role="tbPedidos" EntitySet="tbPedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidosItens_tbPedidos" Association="Self.FK_tbPedidosItens_tbPedidos">
+            <End Role="tbPedidos" EntitySet="tbPedidos" />
+            <End Role="tbPedidosItens" EntitySet="tbPedidosItens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbPedidosMateriasPrimas_tbPedidos" Association="Self.FK_tbPedidosMateriasPrimas_tbPedidos">
+            <End Role="tbPedidos" EntitySet="tbPedidos" />
+            <End Role="tbPedidosMateriasPrimas" EntitySet="tbPedidosMateriasPrimas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UnileverDBModelStoreContainer" CdmEntityContainer="UnileverDBEntities">
+          <EntitySetMapping Name="tbAvisos">
+            <EntityTypeMapping TypeName="UnileverDBModel.Aviso">
+              <MappingFragment StoreEntitySet="tbAvisos">
+                <ScalarProperty Name="codAviso" ColumnName="codAviso" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="mensagem" ColumnName="mensagem" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbFornecedores">
+            <EntityTypeMapping TypeName="UnileverDBModel.Fornecedor">
+              <MappingFragment StoreEntitySet="tbFornecedores">
+                <ScalarProperty Name="codFornecedor" ColumnName="codFornecedor" />
+                <ScalarProperty Name="razaoSocial" ColumnName="razaoSocial" />
+                <ScalarProperty Name="cnpj" ColumnName="cnpj" />
+                <ScalarProperty Name="endereco" ColumnName="endereco" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="bairro" ColumnName="bairro" />
+                <ScalarProperty Name="cidade" ColumnName="cidade" />
+                <ScalarProperty Name="uf" ColumnName="uf" />
+                <ScalarProperty Name="telefone1" ColumnName="telefone1" />
+                <ScalarProperty Name="telefone2" ColumnName="telefone2" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbFornecedoresDocumentos">
+            <EntityTypeMapping TypeName="UnileverDBModel.FornecedorDocumento">
+              <MappingFragment StoreEntitySet="tbFornecedoresDocumentos">
+                <ScalarProperty Name="codFornecedorDocumento" ColumnName="codFornecedorDocumento" />
+                <ScalarProperty Name="codFornecedor" ColumnName="codFornecedor" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="arquivo" ColumnName="arquivo" />
+                <ScalarProperty Name="aprovado" ColumnName="aprovado" />
+                <ScalarProperty Name="dataAprovado" ColumnName="dataAprovado" />
+                <ScalarProperty Name="codUsuarioAprovado" ColumnName="codUsuarioAprovado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbMateriasPrimas">
+            <EntityTypeMapping TypeName="UnileverDBModel.MateriaPrima">
+              <MappingFragment StoreEntitySet="tbMateriasPrimas">
+                <ScalarProperty Name="codMateriaPrima" ColumnName="codMateriaPrima" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="grupo" ColumnName="grupo" />
+                <ScalarProperty Name="classificacao" ColumnName="classificacao" />
+                <ScalarProperty Name="ultimoPreco" ColumnName="ultimoPreco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPedidos">
+            <EntityTypeMapping TypeName="UnileverDBModel.Pedido">
+              <MappingFragment StoreEntitySet="tbPedidos">
+                <ScalarProperty Name="codPedido" ColumnName="codPedido" />
+                <ScalarProperty Name="codUsuario" ColumnName="codUsuario" />
+                <ScalarProperty Name="data" ColumnName="data" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPedidosItens">
+            <EntityTypeMapping TypeName="UnileverDBModel.PedidoItem">
+              <MappingFragment StoreEntitySet="tbPedidosItens">
+                <ScalarProperty Name="codPedidoItem" ColumnName="codPedidoItem" />
+                <ScalarProperty Name="codPedido" ColumnName="codPedido" />
+                <ScalarProperty Name="codFornecedor" ColumnName="codFornecedor" />
+                <ScalarProperty Name="codMateriaPrima" ColumnName="codMateriaPrima" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="dataEntrega" ColumnName="dataEntrega" />
+                <ScalarProperty Name="aprovado" ColumnName="aprovado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPedidosMateriasPrimas">
+            <EntityTypeMapping TypeName="UnileverDBModel.PedidoMateriaPrima">
+              <MappingFragment StoreEntitySet="tbPedidosMateriasPrimas">
+                <ScalarProperty Name="codPedidoMateriaPrima" ColumnName="codPedidoMateriaPrima" />
+                <ScalarProperty Name="codPedido" ColumnName="codPedido" />
+                <ScalarProperty Name="codMateriaPrima" ColumnName="codMateriaPrima" />
+                <ScalarProperty Name="precoMaximo" ColumnName="precoMaximo" />
+                <ScalarProperty Name="dataLimite" ColumnName="dataLimite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbUsuarios">
+            <EntityTypeMapping TypeName="UnileverDBModel.Usuario">
+              <MappingFragment StoreEntitySet="tbUsuarios">
+                <ScalarProperty Name="codUsuario" ColumnName="codUsuario" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
